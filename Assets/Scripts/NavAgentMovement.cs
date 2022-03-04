@@ -7,16 +7,16 @@ using UnityEngine.AI;
 public class NavAgentMovement : MonoBehaviour
 {
     [Header("Private")]
+    public GameObject managers;
+
     public NavMeshAgent navMeshAgent;
-
-    public CharacterMoveController charMoveCtrl;
-
+    public InputSysManager inputSysManager;
     public Vector3 destination;
 
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        charMoveCtrl = GetComponent<CharacterMoveController>();
+        inputSysManager = managers.GetComponentInChildren<InputSysManager>();
     }
 
     // Start is called before the first frame update
@@ -27,14 +27,13 @@ public class NavAgentMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (charMoveCtrl.isMovementPressed)
-            Move();
+        Move();
     }
 
     private void Move()
     {
-        destination = transform.position + transform.right * charMoveCtrl.input.x +
-                      transform.forward * charMoveCtrl.input.y;
+        destination = transform.position + transform.right * inputSysManager.input.x +
+                      transform.forward * inputSysManager.input.y;
 
         // Setting the Nav Mesh Agent's Destination Position
         navMeshAgent.destination = destination;
