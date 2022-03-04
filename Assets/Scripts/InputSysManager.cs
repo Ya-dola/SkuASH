@@ -8,7 +8,7 @@ public class InputSysManager : MonoBehaviour
     public InputSys inputSys;
 
     public Vector2 input;
-    public Vector3 currentMovement;
+    public Vector3 mvmntVec3;
 
     private void Awake()
     {
@@ -34,8 +34,8 @@ public class InputSysManager : MonoBehaviour
         input = direction;
 
         // Mapping Vec2 to Vec3
-        currentMovement.x = input.x;
-        currentMovement.z = input.y;
+        mvmntVec3.x = input.x;
+        mvmntVec3.z = input.y;
     }
 
     private void OnEnable()
