@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 77104a1b37e40eb4ab2b793f6209fbfe
+guid: 8bb3342c18a1b1e4eb83c6716513df14
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Defeat
+    second: Victory Tut Hip Hop Dance
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Defeat
+      name: Victory Tut Hip Hop Dance
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 377
+      lastFrame: 1015
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

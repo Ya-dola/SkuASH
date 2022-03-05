@@ -14,9 +14,10 @@ public class UnityCharCtrlMovement : MonoBehaviour
 
     public float gravity = -9.81f;
 
-    [Header("Private")]
+    [Header("Managers")]
     public GameObject managers;
 
+    [Header("Private")]
     public CharacterController charCtrl;
 
     public InputSysManager inputSysManager;
@@ -40,15 +41,20 @@ public class UnityCharCtrlMovement : MonoBehaviour
     private void FixedUpdate()
     {
         ApplyGravity();
+
+        // Stops Execution here if not Moving
+        if (!inputSysManager.isMoving)
+            return;
+
         Move();
     }
 
     private void Move()
     {
-        charCtrl.Move(inputSysManager.mvmntVec3 * moveSpeed * Time.fixedDeltaTime);
+        charCtrl.Move(inputSysManager.mvmntVec3 * Time.fixedDeltaTime * moveSpeed);
     }
 
-    // Applying Proper Gravity to Character Controller
+    // Applying Proper Gravity to Character Controller to keep it grounded
     private void ApplyGravity()
     {
         if (charCtrl.isGrounded)

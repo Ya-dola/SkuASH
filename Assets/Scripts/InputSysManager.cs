@@ -9,6 +9,10 @@ public class InputSysManager : MonoBehaviour
 
     public Vector2 input;
     public Vector3 mvmntVec3;
+    public bool isMoving;
+
+    // [Header("Debug")]
+    // public float inputMag;
 
     private void Awake()
     {
@@ -36,6 +40,13 @@ public class InputSysManager : MonoBehaviour
         // Mapping Vec2 to Vec3
         mvmntVec3.x = input.x;
         mvmntVec3.z = input.y;
+
+        // To check if Character is moving or not
+        // inputMag = input.magnitude;
+        if (input.magnitude == 0f)
+            isMoving = false;
+        else
+            isMoving = true;
     }
 
     private void OnEnable()
