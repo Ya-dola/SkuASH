@@ -1,11 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InputSysManager : MonoBehaviour
 {
-    public InputSys inputSys;
+    private InputSys _inputSys;
 
     public Vector2 input;
     public Vector3 mvmntVec3;
@@ -16,20 +13,10 @@ public class InputSysManager : MonoBehaviour
 
     private void Awake()
     {
-        inputSys = new InputSys();
+        _inputSys = new InputSys();
 
         // When Buttons are Pressed
-        inputSys.PlayerControls.Move.performed += context => { MoveUpdate(context.ReadValue<Vector2>()); };
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        _inputSys.PlayerControls.Move.performed += context => { MoveUpdate(context.ReadValue<Vector2>()); };
     }
 
     private void MoveUpdate(Vector2 direction)
@@ -51,11 +38,11 @@ public class InputSysManager : MonoBehaviour
 
     private void OnEnable()
     {
-        inputSys.PlayerControls.Enable();
+        _inputSys.PlayerControls.Enable();
     }
 
     private void OnDisable()
     {
-        inputSys.PlayerControls.Disable();
+        _inputSys.PlayerControls.Disable();
     }
 }
