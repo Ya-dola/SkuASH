@@ -34,7 +34,7 @@ public class CharAnimCtrl : MonoBehaviour
         ResetLocalPos();
 
         // Stops Execution here if not Moving
-        if (!inputSysManager.isMoving)
+        if (!inputSysManager.IsMoving)
             return;
 
         Rotate();
@@ -49,7 +49,7 @@ public class CharAnimCtrl : MonoBehaviour
     {
         animIsMoving = animator.GetBool("isMoving");
 
-        animator.SetBool("isMoving", inputSysManager.isMoving);
+        animator.SetBool("isMoving", inputSysManager.IsMoving);
 
         // if (inputSysManager.isMoving)
         // {
@@ -63,9 +63,9 @@ public class CharAnimCtrl : MonoBehaviour
 
     private void Rotate()
     {
-        posToLookAt.x = inputSysManager.mvmntVec3.x;
+        posToLookAt.x = inputSysManager.MvmntVec3.x;
         posToLookAt.y = 0f;
-        posToLookAt.z = inputSysManager.mvmntVec3.z;
+        posToLookAt.z = inputSysManager.MvmntVec3.z;
 
         currentRot = transform.rotation;
         targetRot = Quaternion.LookRotation(posToLookAt);

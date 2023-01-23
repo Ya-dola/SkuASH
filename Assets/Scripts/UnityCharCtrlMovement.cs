@@ -29,7 +29,7 @@ public class UnityCharCtrlMovement : MonoBehaviour
         ApplyGravity();
 
         // Stops Execution here if not Moving
-        if (!inputSysManager.isMoving)
+        if (!inputSysManager.IsMoving)
             return;
 
         Move();
@@ -37,15 +37,15 @@ public class UnityCharCtrlMovement : MonoBehaviour
 
     private void Move()
     {
-        charCtrl.Move(inputSysManager.mvmntVec3 * Time.fixedDeltaTime * moveSpeed);
+        charCtrl.Move(inputSysManager.MvmntVec3 * (Time.fixedDeltaTime * moveSpeed));
     }
 
     // Applying Proper Gravity to Character Controller to keep it grounded
     private void ApplyGravity()
     {
         if (charCtrl.isGrounded)
-            inputSysManager.mvmntVec3.y = groundedGravity;
+            inputSysManager.SetMvmntVec3Y(groundedGravity);
         else
-            inputSysManager.mvmntVec3.y += (gravity * Time.fixedDeltaTime);
+            inputSysManager.IncrMvmntVec3Y(gravity * Time.fixedDeltaTime);
     }
 }

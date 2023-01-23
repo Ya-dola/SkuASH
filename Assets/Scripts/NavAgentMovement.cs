@@ -32,8 +32,8 @@ public class NavAgentMovement : MonoBehaviour
 
     private void Move()
     {
-        destination = transform.position + transform.right * inputSysManager.input.x +
-                      transform.forward * inputSysManager.input.y;
+        destination = transform.position + transform.right * inputSysManager.Input.x +
+                      transform.forward * inputSysManager.Input.y;
 
         // Setting the Nav Mesh Agent's Destination Position
         navMeshAgent.destination = destination;

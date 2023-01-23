@@ -2,11 +2,17 @@ using UnityEngine;
 
 public class InputSysManager : MonoBehaviour
 {
-    private InputSys _inputSys;
+    [SerializeField]
+    private Vector2 input;
 
-    public Vector2 input;
-    public Vector3 mvmntVec3;
-    public bool isMoving;
+    [SerializeField]
+    private Vector3 mvmntVec3;
+
+    [SerializeField]
+    private bool isMoving;
+
+
+    private InputSys _inputSys;
 
     // [Header("Debug")]
     // public float inputMag;
@@ -16,7 +22,8 @@ public class InputSysManager : MonoBehaviour
         _inputSys = new InputSys();
 
         // When Buttons are Pressed
-        _inputSys.PlayerControls.Move.performed += context => { MoveUpdate(context.ReadValue<Vector2>()); };
+        _inputSys.PlayerControls.Move.performed +=
+            context => { MoveUpdate(context.ReadValue<Vector2>()); };
     }
 
     private void MoveUpdate(Vector2 direction)
@@ -36,6 +43,16 @@ public class InputSysManager : MonoBehaviour
             isMoving = true;
     }
 
+    public void SetMvmntVec3Y(float yVal)
+    {
+        mvmntVec3.y = yVal;
+    }
+
+    public void IncrMvmntVec3Y(float yVal)
+    {
+        mvmntVec3.y += yVal;
+    }
+
     private void OnEnable()
     {
         _inputSys.PlayerControls.Enable();
@@ -45,4 +62,11 @@ public class InputSysManager : MonoBehaviour
     {
         _inputSys.PlayerControls.Disable();
     }
+
+    // Getters and Setters
+    public Vector2 Input => input;
+
+    public Vector3 MvmntVec3 => mvmntVec3;
+
+    public bool IsMoving => isMoving;
 }
