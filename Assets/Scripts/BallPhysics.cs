@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Ball : MonoBehaviour
+public class BallPhysics : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField]
