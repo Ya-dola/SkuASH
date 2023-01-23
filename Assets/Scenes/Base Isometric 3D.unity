@@ -165,8 +165,8 @@ GameObject:
   - component: {fileID: 626035552}
   - component: {fileID: 626035551}
   - component: {fileID: 626035550}
-  - component: {fileID: 626035554}
   - component: {fileID: 626035553}
+  - component: {fileID: 626035554}
   - component: {fileID: 626035555}
   m_Layer: 0
   m_Name: Ball
@@ -233,7 +233,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 626035548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 5, z: -4}
+  m_LocalPosition: {x: 2, y: 1.2, z: -4}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -281,8 +281,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a978e4b8b369f74c99a7ee92a034291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceVelocity: 8
-  bias: 0.4
+  reflectVel: 10
+  bounceHeight: 4
+  bounceSpeed: 3
+  dirBias: 0.4
   initialVelocity: {x: 8, y: 0, z: 0}
   playerTransform: {fileID: 543450653709922768}
 --- !u!1 &854261965
@@ -644,7 +646,7 @@ GameObject:
   - component: {fileID: 1300352771}
   - component: {fileID: 1300352770}
   m_Layer: 0
-  m_Name: Wall_1
+  m_Name: SideWall - Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

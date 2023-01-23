@@ -6,19 +6,25 @@ public class BallPhysics : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField]
-    private float bounceVelocity = 10f;
+    private float reflectVel = 10f;
 
-    [FormerlySerializedAs("bias")]
+    [SerializeField]
+    private float bounceHeight = 4f;
+    [SerializeField]
+    private float bounceSpeed = 3f;
+
     [SerializeField]
     [Range(0f, 1f)]
     [Tooltip("0 = regular bounce ignoring player | 1 = direct to the player")]
-    private float dirBias = 0.5f;
+    private float dirBias = 0.4f;
 
     [SerializeField]
     [Tooltip("Just for debugging, adds some velocity during OnEnable")]
+    // TODO - Adjust so Players start the movement towards wall 
     private Vector3 initialVelocity;
 
     [SerializeField]
+    // TODO - Change to Position that can be set through method
     private Transform playerTransform;
 
     private Vector3 _lastFrameVelocity;
@@ -37,12 +43,12 @@ public class BallPhysics : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Bounce(collision.GetContact(0).normal);
+        ReflectBall(collision.GetContact(0).normal);
     }
 
-    private void Bounce(Vector3 collisionNormal)
+    private void ReflectBall(Vector3 collisionNormal)
     {
-        var speed = _lastFrameVelocity.magnitude;
+        var lastSpeed = _lastFrameVelocity.magnitude;
 
         var bounceDirection = Vector3.Reflect(_lastFrameVelocity.normalized, collisionNormal);
         var directionToPlayer = playerTransform.position - transform.position;
@@ -51,6 +57,6 @@ public class BallPhysics : MonoBehaviour
 
         // Debug.Log("Out Direction: " + direction + "Normal: " + direction.normalized);
 
-        _rb.velocity = direction.normalized * Mathf.Max(speed, bounceVelocity);
+        _rb.velocity = direction.normalized * Mathf.Max(lastSpeed, reflectVel);
     }
 }
