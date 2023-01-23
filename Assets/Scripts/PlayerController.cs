@@ -12,11 +12,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Required Objects")]
     [SerializeField]
-    private Rigidbody rb;
-
-    [SerializeField]
     private InputSysManager inputSysMan;
 
+    private Rigidbody _rb;
     private Vector3 _inputVec;
 
     // Update is called once per frame
@@ -49,7 +47,13 @@ public class PlayerController : MonoBehaviour
     private void MoveInDir()
     {
         var transform1 = transform;
-        rb.MovePosition(transform1.position +
-                        transform1.forward * (inputSysMan.MvmntVec3.magnitude * (speed * Time.deltaTime)));
+        _rb.MovePosition(transform1.position +
+                         transform1.forward *
+                         (inputSysMan.MvmntVec3.magnitude * (speed * Time.deltaTime)));
+    }
+
+    private void OnEnable()
+    {
+        _rb = GetComponent<Rigidbody>();
     }
 }
