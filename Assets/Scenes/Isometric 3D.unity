@@ -3837,9 +3837,9 @@ Transform:
   - {fileID: 722223953}
   - {fileID: 1405210850}
   - {fileID: 320673070}
-  - {fileID: 837950541}
   - {fileID: 763257078}
   - {fileID: 1374972398}
+  - {fileID: 837950541}
   - {fileID: 232928509}
   - {fileID: 1083937152}
   - {fileID: 530349380}
@@ -4335,7 +4335,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2101032776
 Transform:
   m_ObjectHideFlags: 0
