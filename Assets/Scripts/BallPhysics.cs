@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody))]
 public class BallPhysics : MonoBehaviour
@@ -10,8 +9,13 @@ public class BallPhysics : MonoBehaviour
 
     [SerializeField]
     private float bounceHeight = 4f;
+
     [SerializeField]
     private float bounceSpeed = 3f;
+
+    [Header("Required Objects")]
+    [SerializeField]
+    private Transform ballVisual;
 
     [SerializeField]
     [Range(0f, 1f)]
@@ -29,16 +33,20 @@ public class BallPhysics : MonoBehaviour
 
     private Vector3 _lastFrameVelocity;
     private Rigidbody _rb;
+    private float _initialHeight;
 
     private void OnEnable()
     {
         _rb = GetComponent<Rigidbody>();
         _rb.velocity = initialVelocity;
+        _initialHeight = transform.position.y;
     }
 
     private void Update()
     {
         _lastFrameVelocity = _rb.velocity;
+
+        BounceBall();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -58,5 +66,15 @@ public class BallPhysics : MonoBehaviour
         // Debug.Log("Out Direction: " + direction + "Normal: " + direction.normalized);
 
         _rb.velocity = direction.normalized * Mathf.Max(lastSpeed, reflectVel);
+    }
+
+    private void BounceBall()
+    {
+        var position = transform.position;
+
+        position = new Vector3(position.x, _initialHeight, position.z) +
+                   Vector3.up * Mathf.Abs(Mathf.Sin(Time.deltaTime * bounceSpeed));
+
+        transform.position = position;
     }
 }
