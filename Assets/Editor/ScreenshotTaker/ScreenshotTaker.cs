@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class Screenshot : EditorWindow
+public class ScreenshotTaker : EditorWindow
 {
     int _resWidth = Screen.width * 4;
     int _resHeight = Screen.height * 4;
@@ -18,15 +18,14 @@ public class Screenshot : EditorWindow
     bool _isTransparent = false;
 
     // Add menu item named "My Window" to the Window menu
-    [MenuItem("Tools/High-Res Screenshot")]
+    [MenuItem("Tools/Screenshot Taker")]
     public static void ShowWindow()
     {
         //Show existing window instance. If one doesn't exist, make one.
-        EditorWindow editorWindow = EditorWindow.GetWindow(typeof(Screenshot));
+        EditorWindow editorWindow = EditorWindow.GetWindow(typeof(ScreenshotTaker));
         editorWindow.autoRepaintOnSceneChange = true;
         editorWindow.Show();
-        // editorWindow.title = "Screenshot";
-        editorWindow.titleContent.text = "Screenshot";
+        editorWindow.titleContent.text = "Screenshot Taker";
     }
 
     float _lastTime;
