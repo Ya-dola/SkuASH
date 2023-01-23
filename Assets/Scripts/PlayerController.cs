@@ -1,18 +1,18 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private Rigidbody rb;
-
+    [Header("Attributes")]
     [SerializeField]
     private float speed = 6f;
 
     [SerializeField]
     private float turnSpeed = 360f;
+
+    [Header("Required Objects")]
+    [SerializeField]
+    private Rigidbody rb;
 
     [SerializeField]
     private InputSysManager inputSysMan;
@@ -22,15 +22,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Look();
+        LookInDir();
     }
 
     private void FixedUpdate()
     {
-        Move();
+        MoveInDir();
     }
 
-    private void Look()
+    private void LookInDir()
     {
         if (inputSysMan.MvmntVec3 == Vector3.zero) return;
 
@@ -41,13 +41,12 @@ public class PlayerController : MonoBehaviour
         // Sharp Turns - 8 Directional
         // transform.rotation = lookRot;
 
-        // Smooth Turns
-
+        // Smooth Turns - Actual Rotation 
         transform.rotation = Quaternion.RotateTowards(transform.rotation,
             lookRot, turnSpeed * Time.deltaTime);
     }
 
-    private void Move()
+    private void MoveInDir()
     {
         var transform1 = transform;
         rb.MovePosition(transform1.position +
