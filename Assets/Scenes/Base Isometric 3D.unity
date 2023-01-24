@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a978e4b8b369f74c99a7ee92a034291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reflectVel: 4
+  reflectVel: 3
   bounceHeight: 4
   bounceSpeed: 2
   ballPathCurve:
@@ -291,35 +291,35 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 3.3265188
-      outSlope: 3.3265188
+      inSlope: 18.27426
+      outSlope: 18.27426
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.06551126
+      outWeight: 0.09705373
     - serializedVersion: 3
       time: 0.5
-      value: 1
+      value: 6
       inSlope: 0
       outSlope: 0
-      tangentMode: 34
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -3.050061
-      outSlope: -3.050061
+      inSlope: -22.19232
+      outSlope: -22.19232
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.0746969
+      inWeight: 0.09012127
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   ballVisual: {fileID: 1204183679}
-  initialVelocity: {x: 4, y: 0, z: 0}
+  initialVelocity: {x: 2, y: 0, z: 0}
   mWallTransform: {fileID: 1518906500}
   mWallZPosOffset: 6.5
   dirBias: 0.4

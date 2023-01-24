@@ -46,13 +46,21 @@ public class BallPhysics : MonoBehaviour
 
     private Vector3 _lastFrameVelocity;
     private Rigidbody _rb;
+
+    // Ball Flying on Hit 
     private Vector3 _targetPos;
+    private Vector3 _collisionPos;
+    private bool _ballHit = false;
 
     private void Update()
     {
         _lastFrameVelocity = _rb.velocity;
-
-        BounceBall();
+        if (!_ballHit)
+            BounceBall();
+        else
+        {
+            HitBall();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -60,7 +68,10 @@ public class BallPhysics : MonoBehaviour
         // Wall
         if (collision.gameObject.CompareTag(TagsLayers.TagMainWall) ||
             collision.gameObject.CompareTag(TagsLayers.TagSideWall))
+        {
             BallHitWall(collision);
+            _ballHit = false;
+        }
 
         // Player
         if (!collision.gameObject.CompareTag(TagsLayers.TagPlayer)) return;
@@ -105,9 +116,12 @@ public class BallPhysics : MonoBehaviour
 
         // Debug.DrawRay(collisionPos, outDir, Color.black, 40f);
 
+        // If Raycast Hits Main Wall
         if (hit.collider != null)
         {
-            print(hit.point);
+            _collisionPos = collisionPos;
+            _targetPos = hit.point;
+            _ballHit = true;
         }
 
         // Debug.Log("Out Direction: " + direction + "Normal: " + direction.normalized);
@@ -121,6 +135,16 @@ public class BallPhysics : MonoBehaviour
         ballVisual.position = transform.position +
                               Vector3.up * (bounceHeight *
                                             Mathf.Abs(Mathf.Sin(Time.time * bounceSpeed)));
+    }
+
+    private void HitBall()
+    {
+        var position = transform.position;
+
+        var ballVisHeightPos = ballPathCurve.Evaluate(
+            Mathf.InverseLerp(_collisionPos.x, _targetPos.x, position.x));
+
+        ballVisual.position = position + Vector3.up * ballVisHeightPos;
     }
 
     private Vector3 GetPosOnMWall()
