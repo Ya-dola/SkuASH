@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody))]
 public class BallPhysics : MonoBehaviour
@@ -18,18 +20,21 @@ public class BallPhysics : MonoBehaviour
     private Transform ballVisual;
 
     [SerializeField]
-    [Range(0f, 1f)]
-    [Tooltip("0 = regular bounce ignoring player | 1 = direct to the player")]
-    private float dirBias = 0.4f;
-
-    [SerializeField]
     [Tooltip("Just for debugging, adds some velocity during OnEnable")]
-    // TODO - Adjust so Players start the movement towards wall 
+    // TODO - Adjust so Players start the balls movement towards wall 
     private Vector3 initialVelocity;
 
+    [Header("Main Wall Details")]
     [SerializeField]
-    // TODO - Change to Position that can be set through method
-    private Transform playerTransform;
+    private Transform mWallTransform;
+
+    [SerializeField]
+    private float mWallZPosOffset;
+
+    [SerializeField]
+    [Range(0f, 1f)]
+    [Tooltip("0 = Regular Reflect | 1 = Reflect towards Direction")]
+    private float dirBias = 0.4f;
 
     private Vector3 _lastFrameVelocity;
     private Rigidbody _rb;
@@ -49,28 +54,50 @@ public class BallPhysics : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        ReflectBall(collision.GetContact(0).normal);
+        if (collision.gameObject.CompareTag(TagsLayers.TagMainWall) ||
+            collision.gameObject.CompareTag(TagsLayers.TagSideWall))
+        {
+            ReflectBall(collision.GetContact(0).normal);
+        }
+
+        if (collision.gameObject.CompareTag(TagsLayers.TagPlayer))
+        {
+            ReflectBallBias(collision.GetContact(0).normal, GetPosOnMWall(), dirBias);
+        }
     }
+
 
     private void ReflectBall(Vector3 collisionNormal)
     {
-        var lastSpeed = _lastFrameVelocity.magnitude;
-
         var reflectDir = Vector3.Reflect(_lastFrameVelocity.normalized, collisionNormal);
-        var dirToTargetPos = playerTransform.position - transform.position;
 
-        var outDir = Vector3.Lerp(reflectDir, dirToTargetPos, dirBias);
+        _rb.velocity = reflectDir.normalized * Mathf.Max(_lastFrameVelocity.magnitude, reflectVel);
+    }
+
+    private void ReflectBallBias(Vector3 collisionNormal, Vector3 targetPos, float targetBias)
+    {
+        var reflectDir = Vector3.Reflect(_lastFrameVelocity.normalized, collisionNormal);
+        var dirToTargetPos = targetPos - transform.position;
+
+        var outDir = Vector3.Lerp(reflectDir, dirToTargetPos, targetBias);
 
         // Debug.Log("Out Direction: " + direction + "Normal: " + direction.normalized);
 
-        _rb.velocity = outDir.normalized * Mathf.Max(lastSpeed, reflectVel);
+        _rb.velocity = outDir.normalized * Mathf.Max(_lastFrameVelocity.magnitude, reflectVel);
     }
 
     private void BounceBall()
     {
-        // Abs used to Convert Negative Sine Wave to Positive - Stimulate Bounce
+        // Abs used to Convert Negative Sine Wave to Positive - Stimulate Bounce upon reaching zero
         ballVisual.position = transform.position +
                               Vector3.up * (bounceHeight *
                                             Mathf.Abs(Mathf.Sin(Time.time * bounceSpeed)));
+    }
+
+    private Vector3 GetPosOnMWall()
+    {
+        return new Vector3(mWallTransform.position.x,
+            transform.position.y,
+            mWallZPosOffset.RandomRangePlusMin());
     }
 }

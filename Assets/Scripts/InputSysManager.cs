@@ -11,7 +11,6 @@ public class InputSysManager : MonoBehaviour
     [SerializeField]
     private bool isMoving;
 
-
     private InputSys _inputSys;
 
     // [Header("Debug")]
@@ -37,10 +36,7 @@ public class InputSysManager : MonoBehaviour
 
         // To check if Character is moving or not
         // inputMag = input.magnitude;
-        if (input.magnitude == 0f)
-            isMoving = false;
-        else
-            isMoving = true;
+        isMoving = input.magnitude != 0f;
     }
 
     public void SetMvmntVec3Y(float yVal)

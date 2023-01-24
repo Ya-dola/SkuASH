@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour
+public class PlayerCtrl : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField]
