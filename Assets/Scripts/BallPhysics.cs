@@ -54,16 +54,23 @@ public class BallPhysics : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // Wall
         if (collision.gameObject.CompareTag(TagsLayers.TagMainWall) ||
             collision.gameObject.CompareTag(TagsLayers.TagSideWall))
         {
+            if (!CheckMatchingGoLayer(TagsLayers.LayerDefault))
+                ChangeGoLayer(TagsLayers.LayerDefault);
+
             ReflectBall(collision.GetContact(0).normal);
         }
 
-        if (collision.gameObject.CompareTag(TagsLayers.TagPlayer))
-        {
-            ReflectBallBias(collision.GetContact(0).normal, GetPosOnMWall(), dirBias);
-        }
+        // Player
+        if (!collision.gameObject.CompareTag(TagsLayers.TagPlayer)) return;
+
+        if (!CheckMatchingGoLayer(TagsLayers.LayerBallNoPlayer))
+            ChangeGoLayer(TagsLayers.LayerBallNoPlayer);
+
+        ReflectBallBias(collision.GetContact(0).normal, GetPosOnMWall(), dirBias);
     }
 
 
@@ -99,5 +106,15 @@ public class BallPhysics : MonoBehaviour
         return new Vector3(mWallTransform.position.x,
             transform.position.y,
             mWallZPosOffset.RandomRangePlusMin());
+    }
+
+    private bool CheckMatchingGoLayer(string layerName)
+    {
+        return gameObject.layer == LayerMask.NameToLayer(layerName);
+    }
+
+    private void ChangeGoLayer(string layerName)
+    {
+        gameObject.layer = LayerMask.NameToLayer(layerName);
     }
 }

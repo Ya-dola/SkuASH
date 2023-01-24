@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 854261968}
   - component: {fileID: 854261967}
   - component: {fileID: 854261966}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SideWall - Left
   m_TagString: SideWall
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 859524726}
   - component: {fileID: 859524725}
   - component: {fileID: 859524724}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SideWall - Right
   m_TagString: SideWall
   m_Icon: {fileID: 0}
@@ -745,7 +745,7 @@ GameObject:
   - component: {fileID: 1300352772}
   - component: {fileID: 1300352771}
   - component: {fileID: 1300352770}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SideWall - Back
   m_TagString: SideWall
   m_Icon: {fileID: 0}
@@ -933,6 +933,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WheelTrail
       objectReference: {fileID: 0}
+    - target: {fileID: 8993818276168047613, guid: 02ef84d66dc22bf449b3087dcd2b968b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02ef84d66dc22bf449b3087dcd2b968b, type: 3}
 --- !u!4 &1446739912 stripped
@@ -953,7 +957,7 @@ GameObject:
   - component: {fileID: 1518906498}
   - component: {fileID: 1518906501}
   - component: {fileID: 1518906502}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MainWall
   m_TagString: MainWall
   m_Icon: {fileID: 0}
@@ -1301,6 +1305,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WheelTrail
       objectReference: {fileID: 0}
+    - target: {fileID: 8993818276168047613, guid: 02ef84d66dc22bf449b3087dcd2b968b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02ef84d66dc22bf449b3087dcd2b968b, type: 3}
 --- !u!4 &2035197001 stripped
@@ -1413,7 +1421,7 @@ GameObject:
   - component: {fileID: 50596594165628411}
   - component: {fileID: 889182973629673406}
   - component: {fileID: 1702782535980130249}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: wheel_frontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1467,7 +1475,7 @@ GameObject:
   - component: {fileID: 919132149186374507}
   - component: {fileID: 919132149186374508}
   - component: {fileID: 919132149186374509}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1616,7 +1624,7 @@ GameObject:
   - component: {fileID: 8213128249930134093}
   - component: {fileID: 5251295499164448510}
   - component: {fileID: 6702464640345507798}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: spoiler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1650,7 +1658,7 @@ GameObject:
   - component: {fileID: 6500972350734504739}
   - component: {fileID: 824685781944876120}
   - component: {fileID: 6144564154415854231}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: wheel_backLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1757,7 +1765,7 @@ GameObject:
   - component: {fileID: 3361962858307302148}
   - component: {fileID: 4306142438194097117}
   - component: {fileID: 8449996119489899655}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1909,7 +1917,7 @@ GameObject:
   - component: {fileID: 2128198083156984005}
   - component: {fileID: 9194869506256899095}
   - component: {fileID: 330355968352608349}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: wheel_backRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1927,7 +1935,7 @@ GameObject:
   - component: {fileID: 6945619734754310341}
   - component: {fileID: 6555238717419434839}
   - component: {fileID: 3164286642331492389}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: wheel_frontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}

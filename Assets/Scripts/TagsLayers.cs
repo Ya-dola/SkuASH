@@ -8,5 +8,6 @@ public static class TagsLayers
     public const string TagPlayer = "Player";
 
     // Layers
-    public const string LayerBallWall = "";
+    public const string LayerDefault= "Default";
+    public const string LayerBallNoPlayer = "BallNoPlayer";
 }
