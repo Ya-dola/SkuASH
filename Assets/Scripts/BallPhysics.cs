@@ -33,13 +33,11 @@ public class BallPhysics : MonoBehaviour
 
     private Vector3 _lastFrameVelocity;
     private Rigidbody _rb;
-    private float _initialHeight;
 
     private void OnEnable()
     {
         _rb = GetComponent<Rigidbody>();
         _rb.velocity = initialVelocity;
-        _initialHeight = transform.position.y;
     }
 
     private void Update()
@@ -58,23 +56,21 @@ public class BallPhysics : MonoBehaviour
     {
         var lastSpeed = _lastFrameVelocity.magnitude;
 
-        var bounceDirection = Vector3.Reflect(_lastFrameVelocity.normalized, collisionNormal);
-        var directionToPlayer = playerTransform.position - transform.position;
+        var reflectDir = Vector3.Reflect(_lastFrameVelocity.normalized, collisionNormal);
+        var dirToTargetPos = playerTransform.position - transform.position;
 
-        var direction = Vector3.Lerp(bounceDirection, directionToPlayer, dirBias);
+        var outDir = Vector3.Lerp(reflectDir, dirToTargetPos, dirBias);
 
         // Debug.Log("Out Direction: " + direction + "Normal: " + direction.normalized);
 
-        _rb.velocity = direction.normalized * Mathf.Max(lastSpeed, reflectVel);
+        _rb.velocity = outDir.normalized * Mathf.Max(lastSpeed, reflectVel);
     }
 
     private void BounceBall()
     {
-        var position = transform.position;
-
-        position = new Vector3(position.x, _initialHeight, position.z) +
-                   Vector3.up * Mathf.Abs(Mathf.Sin(Time.deltaTime * bounceSpeed));
-
-        transform.position = position;
+        // Abs used to Convert Negative Sine Wave to Positive - Stimulate Bounce
+        ballVisual.position = transform.position +
+                              Vector3.up * (bounceHeight *
+                                            Mathf.Abs(Mathf.Sin(Time.time * bounceSpeed)));
     }
 }
