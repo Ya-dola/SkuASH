@@ -39,12 +39,6 @@ public class BallPhysics : MonoBehaviour
     private Vector3 _lastFrameVelocity;
     private Rigidbody _rb;
 
-    private void OnEnable()
-    {
-        _rb = GetComponent<Rigidbody>();
-        _rb.velocity = initialVelocity;
-    }
-
     private void Update()
     {
         _lastFrameVelocity = _rb.velocity;
@@ -57,22 +51,28 @@ public class BallPhysics : MonoBehaviour
         // Wall
         if (collision.gameObject.CompareTag(TagsLayers.TagMainWall) ||
             collision.gameObject.CompareTag(TagsLayers.TagSideWall))
-        {
-            if (!CheckMatchingGoLayer(TagsLayers.LayerDefault))
-                ChangeGoLayer(TagsLayers.LayerDefault);
-
-            ReflectBall(collision.GetContact(0).normal);
-        }
+            BallHitWall(collision);
 
         // Player
         if (!collision.gameObject.CompareTag(TagsLayers.TagPlayer)) return;
+        BallHitPlayer(collision);
+    }
 
+    private void BallHitWall(Collision collision)
+    {
+        if (!CheckMatchingGoLayer(TagsLayers.LayerDefault))
+            ChangeGoLayer(TagsLayers.LayerDefault);
+
+        ReflectBall(collision.GetContact(0).normal);
+    }
+
+    private void BallHitPlayer(Collision collision)
+    {
         if (!CheckMatchingGoLayer(TagsLayers.LayerBallNoPlayer))
             ChangeGoLayer(TagsLayers.LayerBallNoPlayer);
 
         ReflectBallBias(collision.GetContact(0).normal, GetPosOnMWall(), dirBias);
     }
-
 
     private void ReflectBall(Vector3 collisionNormal)
     {
@@ -116,5 +116,11 @@ public class BallPhysics : MonoBehaviour
     private void ChangeGoLayer(string layerName)
     {
         gameObject.layer = LayerMask.NameToLayer(layerName);
+    }
+
+    private void OnEnable()
+    {
+        _rb = GetComponent<Rigidbody>();
+        _rb.velocity = initialVelocity;
     }
 }

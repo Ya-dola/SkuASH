@@ -46,10 +46,9 @@ public class PlayerCtrl : MonoBehaviour
 
     private void MoveInDir()
     {
-        var transform1 = transform;
-        _rb.MovePosition(transform1.position +
-                         transform1.forward *
-                         (inputSysMan.MvmntVec3.magnitude * (speed * Time.deltaTime)));
+        var trans = transform;
+        _rb.MovePosition(trans.position + trans.forward *
+            (inputSysMan.MvmntVec3.magnitude * (speed * Time.deltaTime)));
     }
 
     private void OnEnable()
