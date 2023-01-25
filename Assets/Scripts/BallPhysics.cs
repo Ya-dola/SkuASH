@@ -49,18 +49,19 @@ public class BallPhysics : MonoBehaviour
     private Rigidbody _rb;
 
     // Ball Flying on Hit 
-    private Vector3 _targetPos;
     private Vector3 _collisionPos;
+    private Vector3 _targetPos;
+
     private bool _ballHit = false;
 
     private void Update()
     {
         _lastFrameVelocity = _rb.velocity;
         if (!_ballHit)
-            BounceBall();
+            BounceBallFlight();
         else
         {
-            HitBall();
+            HitBallFlight();
         }
     }
 
@@ -92,8 +93,10 @@ public class BallPhysics : MonoBehaviour
         if (!CheckMatchingGoLayer(TagsLayers.LayerBallNoPlayer))
             ChangeGoLayer(TagsLayers.LayerBallNoPlayer);
 
-        ReflectBallBias(collision.gameObject.transform.position,
+        ReflectBallBias(collision.GetContact(0).point,
             collision.GetContact(0).normal, GetPosOnMWall(), dirBias);
+
+        AdjustBallCurveStartPos();
     }
 
     private void ReflectBall(Vector3 collisionNormal)
@@ -130,7 +133,7 @@ public class BallPhysics : MonoBehaviour
         _rb.velocity = outDir.normalized * Mathf.Max(_lastFrameVelocity.magnitude, reflectVel);
     }
 
-    private void BounceBall()
+    private void BounceBallFlight()
     {
         // Abs used to Convert Negative Sine Wave to Positive - Stimulate Bounce upon reaching zero
         ballVisual.position = transform.position +
@@ -138,14 +141,24 @@ public class BallPhysics : MonoBehaviour
                                             Mathf.Abs(Mathf.Sin(Time.time * bounceSpeed)));
     }
 
-    private void HitBall()
+    private void HitBallFlight()
     {
-        var position = transform.position;
+        var trans = transform;
+        var position = trans.position;
 
-        var ballVisHeightPos = ballPathCurve.Evaluate(
-            Mathf.InverseLerp(_collisionPos.z, _targetPos.z, position.z));
+        var ballPosZ = _collisionPos.z + (trans.localScale.z * 0.5f);
 
-        ballVisual.position = position + Vector3.up * ballVisHeightPos;
+        var ballVisPosYCurve = ballPathCurve.Evaluate(
+            Mathf.InverseLerp(ballPosZ, _targetPos.z, position.z));
+
+        ballVisual.position = new Vector3(position.x, ballVisPosYCurve, position.z);
+    }
+
+    private void AdjustBallCurveStartPos()
+    {
+        // Adjust starting key of ballPathCurve to match height of ball on collision
+        ballPathCurve.RemoveKey(0);
+        ballPathCurve.AddKey(0f, ballVisual.position.y);
     }
 
     private Vector3 GetPosOnMWall()
