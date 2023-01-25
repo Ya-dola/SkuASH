@@ -30,7 +30,7 @@ public class BallPhysics : MonoBehaviour
     private Transform mWallTransform;
 
     [SerializeField]
-    private float mWallZPosOffset;
+    private float mWallXPosOffset;
 
     [SerializeField]
     [Range(0f, 1f)]
@@ -44,6 +44,7 @@ public class BallPhysics : MonoBehaviour
     [SerializeField]
     private LayerMask rayLayerMask;
 
+    // Private fields
     private Vector3 _lastFrameVelocity;
     private Rigidbody _rb;
 
@@ -142,16 +143,16 @@ public class BallPhysics : MonoBehaviour
         var position = transform.position;
 
         var ballVisHeightPos = ballPathCurve.Evaluate(
-            Mathf.InverseLerp(_collisionPos.x, _targetPos.x, position.x));
+            Mathf.InverseLerp(_collisionPos.z, _targetPos.z, position.z));
 
         ballVisual.position = position + Vector3.up * ballVisHeightPos;
     }
 
     private Vector3 GetPosOnMWall()
     {
-        return new Vector3(mWallTransform.position.x,
+        return new Vector3(mWallXPosOffset.RandomRangePlusMin(),
             transform.position.y,
-            mWallZPosOffset.RandomRangePlusMin());
+            mWallTransform.position.z);
     }
 
     private bool CheckMatchingGoLayer(string layerName)

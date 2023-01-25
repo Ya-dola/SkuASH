@@ -33,7 +33,7 @@ public class PlayerCtrl : MonoBehaviour
         if (inputSysMan.MvmntVec3 == Vector3.zero) return;
 
         var position = transform.position;
-        var relativeDir = (position + inputSysMan.MvmntVec3.Vec3ToIso()) - position;
+        var relativeDir = (position + inputSysMan.MvmntVec3) - position;
         var lookRot = Quaternion.LookRotation(relativeDir, Vector3.up);
 
         // Sharp Turns - 8 Directional
