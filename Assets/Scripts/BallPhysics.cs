@@ -53,16 +53,15 @@ public class BallPhysics : MonoBehaviour
     private Vector3 _targetPos;
 
     private bool _ballHit = false;
+    private float _waveOffset;
 
     private void Update()
     {
         _lastFrameVelocity = _rb.velocity;
-        if (!_ballHit)
+        if (!_ballHit) // Ball Bouncing Off Wall
             BounceBallFlight();
-        else
-        {
+        else // Ball Hit by Player
             HitBallFlight();
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -82,8 +81,13 @@ public class BallPhysics : MonoBehaviour
 
     private void BallHitWall(Collision collision)
     {
+        // If Ball was Previously Hit by Player
         if (!CheckMatchingGoLayer(TagsLayers.LayerDefault))
+        {
             ChangeGoLayer(TagsLayers.LayerDefault);
+            SetWaveOffset();
+        }
+
 
         ReflectBall(collision.GetContact(0).normal);
     }
@@ -135,10 +139,12 @@ public class BallPhysics : MonoBehaviour
 
     private void BounceBallFlight()
     {
-        // Abs used to Convert Negative Sine Wave to Positive - Stimulate Bounce upon reaching zero
-        ballVisual.position = transform.position +
-                              Vector3.up * (bounceHeight *
-                                            Mathf.Abs(Mathf.Sin(Time.time * bounceSpeed)));
+        // Abs used to Convert Negative Cosine Wave to Positive - Stimulate Bounce upon reaching negative values
+        ballVisual.position = transform.position + Vector3.up *
+            (bounceHeight * Mathf.Abs(Mathf.Cos(_waveOffset * bounceSpeed)));
+
+        // Apply time changes to offset after being used
+        _waveOffset += Time.deltaTime;
     }
 
     private void HitBallFlight()
@@ -166,6 +172,12 @@ public class BallPhysics : MonoBehaviour
         return new Vector3(mWallXPosOffset.RandomRangePlusMin(),
             transform.position.y,
             mWallTransform.position.z);
+    }
+
+    private void SetWaveOffset()
+    {
+        _waveOffset = Helpers.GetCosineAngle(ballVisual.position.y - transform.position.y,
+            bounceHeight, bounceSpeed);
     }
 
     private bool CheckMatchingGoLayer(string layerName)

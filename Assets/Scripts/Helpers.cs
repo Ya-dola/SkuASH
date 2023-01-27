@@ -8,4 +8,10 @@ public static class Helpers
     // public static Vector3 Vec3ToIso(this Vector3 vec3) => _isoMatrix.MultiplyPoint3x4(vec3);
 
     public static float RandomRangePlusMin(this float range) => Random.Range(-range, range);
+
+    public static float GetCosineAngle(float yPosDiff, float amplitude, float frequency)
+    {
+        //  Nathf.Acos Only works from -1 to 1
+        return Mathf.Acos(yPosDiff / amplitude >= 1 ? 1 : yPosDiff / amplitude) / frequency;
+    }
 }
