@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -97,11 +98,14 @@ public class BallPhysics : MonoBehaviour
         if (!CheckMatchingGoLayer(TagsLayers.LayerBallNoPlayer))
             ChangeGoLayer(TagsLayers.LayerBallNoPlayer);
 
-        // Triggering Vehicle Hitting Ball Event
-        GameEvtMan.Instance.EvtVehicleHitBall(ballVisual);
+        _ballHit = true;
 
-        ReflectBallBias(collision.GetContact(0).point,
-            collision.GetContact(0).normal, GetPosOnMWall(), dirBias);
+        // Triggering Vehicle Hitting Ball Animation Event
+        GameEvtMan.Instance.EvtVehicleHitBallAnim(
+            ballVisual, collision.GetContact(0).point, collision.GetContact(0).normal);
+
+        // ReflectBallBias(collision.GetContact(0).point,
+        //     collision.GetContact(0).normal, GetPosOnMWall(), dirBias);
 
         AdjustBallCurveStartPos();
     }
@@ -132,12 +136,16 @@ public class BallPhysics : MonoBehaviour
         {
             _collisionPos = collisionPos;
             _targetPos = hit.point;
-            _ballHit = true;
         }
 
         // Debug.Log("Out Direction: " + direction + "Normal: " + direction.normalized);
 
         _rb.velocity = outDir.normalized * Mathf.Max(_lastFrameVelocity.magnitude, reflectVel);
+    }
+
+    private void StartReflectBallBias(Vector3 collisionPos, Vector3 collisionNormal)
+    {
+        ReflectBallBias(collisionPos, collisionNormal, GetPosOnMWall(), dirBias);
     }
 
     private void BounceBallFlight()
@@ -197,5 +205,12 @@ public class BallPhysics : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _rb.velocity = initialVelocity;
+
+        GameEvtMan.Instance.ActVehicleHitBall += StartReflectBallBias;
+    }
+
+    private void OnDisable()
+    {
+        GameEvtMan.Instance.ActVehicleHitBall -= StartReflectBallBias;
     }
 }

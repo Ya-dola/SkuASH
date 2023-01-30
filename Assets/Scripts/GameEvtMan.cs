@@ -20,10 +20,17 @@ public class GameEvtMan : MonoBehaviour
     }
 
     // Event Actions
-    public event Action<Transform> ActVehicleHitBall;
+    public event Action<Transform, Vector3, Vector3> ActVehicleHitBallAnim;
+    public event Action<Vector3, Vector3> ActVehicleHitBall;
 
-    public void EvtVehicleHitBall(Transform trans)
+    // Invoking Event Actions
+    public void EvtVehicleHitBallAnim(Transform trans, Vector3 vecA, Vector3 vecB)
     {
-        ActVehicleHitBall?.Invoke(trans);
+        ActVehicleHitBallAnim?.Invoke(trans, vecA, vecB);
+    }
+
+    public void EvtVehicleHitBall(Vector3 vecA, Vector3 vecB)
+    {
+        ActVehicleHitBall?.Invoke(vecA, vecB);
     }
 }

@@ -263,7 +263,7 @@ Transform:
   - {fileID: 50596594165628411}
   m_Father: {fileID: 543450653709922768}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 93.33334}
 --- !u!95 &336478439
 Animator:
   serializedVersion: 5
@@ -2027,7 +2027,7 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.1
+      time: 0.2
       value: 6.66
       inSlope: 0
       outSlope: 0
@@ -2038,8 +2038,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.5
       value: 0
-      inSlope: -16.65
-      outSlope: -16.65
+      inSlope: -22.199999
+      outSlope: -22.199999
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -2050,7 +2050,79 @@ MonoBehaviour:
   posHitCurveTan: -0.45
   rotHitCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1800
+      outSlope: 1800
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2
+      value: 360
+      inSlope: 1150
+      outSlope: 1150
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.25
+      value: 385
+      inSlope: 0.000076293945
+      outSlope: 0.000076293945
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3
+      value: 360
+      inSlope: -500.00003
+      outSlope: -500.00003
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.35
+      value: 335
+      inSlope: -0.00015258789
+      outSlope: -0.00015258789
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4
+      value: 360
+      inSlope: 249.99994
+      outSlope: 249.99994
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.499
+      value: 360
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
