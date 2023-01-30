@@ -163,6 +163,7 @@ public class BallPhysics : MonoBehaviour
         var trans = transform;
         var position = trans.position;
 
+        // Offset Ball pos from centre by the radius of the ball
         var ballPosZ = _collisionPos.z + (trans.localScale.z * 0.5f);
 
         var ballVisPosYCurve = ballPathCurve.Evaluate(
