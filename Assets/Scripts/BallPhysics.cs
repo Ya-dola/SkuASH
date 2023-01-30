@@ -52,7 +52,7 @@ public class BallPhysics : MonoBehaviour
     private Vector3 _collisionPos;
     private Vector3 _targetPos;
 
-    private bool _ballHit = false;
+    private bool _ballHit;
     private float _waveOffset;
 
     private void Update()
@@ -96,6 +96,9 @@ public class BallPhysics : MonoBehaviour
     {
         if (!CheckMatchingGoLayer(TagsLayers.LayerBallNoPlayer))
             ChangeGoLayer(TagsLayers.LayerBallNoPlayer);
+
+        // Triggering Vehicle Hitting Ball Event
+        GameEvtMan.Instance.EvtVehicleHitBall(ballVisual);
 
         ReflectBallBias(collision.GetContact(0).point,
             collision.GetContact(0).normal, GetPosOnMWall(), dirBias);
