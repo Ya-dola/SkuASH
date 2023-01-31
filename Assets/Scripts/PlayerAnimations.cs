@@ -9,11 +9,12 @@ public class PlayerAnimations : MonoBehaviour
     private AnimationCurve posHitCurve;
 
     [SerializeField]
+    [Range(-1f, 1f)]
     private float posHitCurveTan;
 
     [Header("Rotation Curves")]
     [SerializeField]
-    private AnimationCurve rotHitCurve;
+    private AnimationCurve rotZHitCurve;
 
     [SerializeField]
     private Animation vehicleAnim;
@@ -52,8 +53,9 @@ public class PlayerAnimations : MonoBehaviour
             name = "vehicleHitClip"
         };
 
+        // Create Clip Curves according to curves defined earlier
         clip.SetCurve("", typeof(Transform), "localPosition.y", posHitCurve);
-        // clip.SetCurve("", typeof(Transform), "localRotation.z", rotHitCurve);
+        clip.SetCurve("", typeof(Transform), "localEulerAngles.z", rotZHitCurve);
 
         vehicleAnim.AddClip(clip, clip.name);
         vehicleAnim.Play(clip.name);
