@@ -12,7 +12,7 @@ public class PlayerCtrl : MonoBehaviour
 
     [Header("Required Objects")]
     [SerializeField]
-    private InputSysManager inputSysMan;
+    private InputSysMan inputSysMan;
 
     private Rigidbody _rb;
     private Vector3 _inputVec;

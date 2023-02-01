@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 public class NavAgentMovement : MonoBehaviour
 {
@@ -10,13 +11,14 @@ public class NavAgentMovement : MonoBehaviour
     public GameObject managers;
 
     public NavMeshAgent navMeshAgent;
-    public InputSysManager inputSysManager;
+    [FormerlySerializedAs("inputSysManager")]
+    public InputSysMan inputSysMan;
     public Vector3 destination;
 
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        inputSysManager = managers.GetComponentInChildren<InputSysManager>();
+        inputSysMan = managers.GetComponentInChildren<InputSysMan>();
     }
 
     // Start is called before the first frame update
@@ -32,8 +34,8 @@ public class NavAgentMovement : MonoBehaviour
 
     private void Move()
     {
-        destination = transform.position + transform.right * inputSysManager.Input.x +
-                      transform.forward * inputSysManager.Input.y;
+        destination = transform.position + transform.right * inputSysMan.Input.x +
+                      transform.forward * inputSysMan.Input.y;
 
         // Setting the Nav Mesh Agent's Destination Position
         navMeshAgent.destination = destination;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InputSysManager : MonoBehaviour
+public class InputSysMan : MonoBehaviour
 {
     [SerializeField]
     private Vector2 input;

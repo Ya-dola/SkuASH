@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CharAnimCtrl : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class CharAnimCtrl : MonoBehaviour
     [Header("Private")]
     public Animator animator;
 
-    public InputSysManager inputSysManager;
+    [FormerlySerializedAs("inputSysManager")]
+    public InputSysMan inputSysMan;
 
     private Vector3 posToLookAt;
     private Quaternion currentRot;
@@ -21,7 +23,7 @@ public class CharAnimCtrl : MonoBehaviour
 
     private void Awake()
     {
-        inputSysManager = managers.GetComponentInChildren<InputSysManager>();
+        inputSysMan = managers.GetComponentInChildren<InputSysMan>();
         animator = GetComponent<Animator>();
     }
 
@@ -34,7 +36,7 @@ public class CharAnimCtrl : MonoBehaviour
         ResetLocalPos();
 
         // Stops Execution here if not Moving
-        if (!inputSysManager.IsMoving)
+        if (!inputSysMan.IsMoving)
             return;
 
         Rotate();
@@ -49,7 +51,7 @@ public class CharAnimCtrl : MonoBehaviour
     {
         animIsMoving = animator.GetBool("isMoving");
 
-        animator.SetBool("isMoving", inputSysManager.IsMoving);
+        animator.SetBool("isMoving", inputSysMan.IsMoving);
 
         // if (inputSysManager.isMoving)
         // {
@@ -63,9 +65,9 @@ public class CharAnimCtrl : MonoBehaviour
 
     private void Rotate()
     {
-        posToLookAt.x = inputSysManager.MvmntVec3.x;
+        posToLookAt.x = inputSysMan.MvmntVec3.x;
         posToLookAt.y = 0f;
-        posToLookAt.z = inputSysManager.MvmntVec3.z;
+        posToLookAt.z = inputSysMan.MvmntVec3.z;
 
         currentRot = transform.rotation;
         targetRot = Quaternion.LookRotation(posToLookAt);

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class UnityCharCtrlMovement : MonoBehaviour
 {
@@ -16,11 +17,12 @@ public class UnityCharCtrlMovement : MonoBehaviour
     [Header("Private")]
     public CharacterController charCtrl;
 
-    public InputSysManager inputSysManager;
+    [FormerlySerializedAs("inputSysManager")]
+    public InputSysMan inputSysMan;
 
     private void Awake()
     {
-        inputSysManager = managers.GetComponentInChildren<InputSysManager>();
+        inputSysMan = managers.GetComponentInChildren<InputSysMan>();
         charCtrl = GetComponent<CharacterController>();
     }
 
@@ -29,7 +31,7 @@ public class UnityCharCtrlMovement : MonoBehaviour
         ApplyGravity();
 
         // Stops Execution here if not Moving
-        if (!inputSysManager.IsMoving)
+        if (!inputSysMan.IsMoving)
             return;
 
         Move();
@@ -37,15 +39,15 @@ public class UnityCharCtrlMovement : MonoBehaviour
 
     private void Move()
     {
-        charCtrl.Move(inputSysManager.MvmntVec3 * (Time.fixedDeltaTime * moveSpeed));
+        charCtrl.Move(inputSysMan.MvmntVec3 * (Time.fixedDeltaTime * moveSpeed));
     }
 
     // Applying Proper Gravity to Character Controller to keep it grounded
     private void ApplyGravity()
     {
         if (charCtrl.isGrounded)
-            inputSysManager.SetMvmntVec3Y(groundedGravity);
+            inputSysMan.SetMvmntVec3Y(groundedGravity);
         else
-            inputSysManager.IncrMvmntVec3Y(gravity * Time.fixedDeltaTime);
+            inputSysMan.IncrMvmntVec3Y(gravity * Time.fixedDeltaTime);
     }
 }
