@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameMan : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    // Singleton Setup
+    public static GameMan Instance { get; private set; }
+
+    private void Awake()
     {
-        
+        // Singleton Setup
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private BallStateEnum _ballState;
 }

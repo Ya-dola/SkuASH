@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+// Ensure Script Executed Earlier that other scripts due to events
 public class GameEvtMan : MonoBehaviour
 {
     // Singleton Setup
